@@ -1,4 +1,6 @@
-let {User, userIsRegistreted} = require("./storage/storage");
+let {User, userIsRegistreted, clearStorage, findUserByEmail} = require("./storage/storage");
+
+clearStorage();
 
 module.exports = (app) => {
 
@@ -13,12 +15,17 @@ module.exports = (app) => {
         let user = new User(email, password);
         user.addPoints(100);
         user.saveToStorage();
+        res.redirect(`/profile/${email}`);
     }else{
         console.log("exist");
+        res.redirect("/");
     }
-
-    // console.log(user.validPassword("1234"));
-    res.redirect("/");
   })
 
+  app.get("/profile/:email", (req, res) => {
+    console.log("EMAIL: "+req.params.email); 
+    let user = findUserByEmail(req.params.email);  
+    console.log(user);  
+    res.render("profile.pug", {email: user.email, points: user.points});
+  })
 };

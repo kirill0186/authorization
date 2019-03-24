@@ -1,10 +1,1 @@
-{
-  "users": [
-    {
-      "id": "f8249eb8-4921-446c-9841-716e2b682cae",
-      "email": "kirill0186@gmail.com",
-      "password": "$2a$08$91dg2prCTcoQvaVlwLoREO6W2.owQqmVDf5wcxX./ifD6BUPt0Obe",
-      "points": 100
-    }
-  ]
-}
+{"users":[{"id":"2172b851-adc7-43fc-a93b-bdf757068d69","email":"sdff","password":"$2a$08$xRm8IOAZv39KSbXE/R36f.LAXJEsz2lRwefJYDNwHHatZ0LV3GjJu","points":100}]}

@@ -39,10 +39,14 @@ class User {
   }
 }
 
+function clearStorage(){
+  let storage = '{"users":[]}';
+  fs.writeFileSync("storage/storage.json", storage, err => {
+    if (err) throw err;
+  });}
 
 function getStorage() {
-  let storage = JSON.parse(fs.readFileSync('storage/storage.json', 'utf8'));
-  return storage;
+  return JSON.parse(fs.readFileSync('storage/storage.json', 'utf8'));;
 }
 
 function getUsers() {
@@ -55,7 +59,15 @@ function userIsRegistreted(email){
   }) !== undefined;
 }
 
+function findUserByEmail(email){
+  return getUsers().find(user => {
+    return user.email === email; 
+  })
+}
+
 module.exports = {
   User: User,
   userIsRegistreted: userIsRegistreted,
+  clearStorage: clearStorage,
+  findUserByEmail: findUserByEmail,
 };
