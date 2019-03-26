@@ -1,0 +1,41 @@
+body {
+  margin-top: 100px;
+  background: #eee;
+  color: #333;
+  display: grid;
+  justify-content: center;
+  grid-row-gap: 15px;
+  font-family: "Roboto", sans-serif;
+}
+
+button {
+  padding: 2px 6px;
+  border: 1px solid #ccc;
+  background: #ddd;
+  color: #333;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+a {
+  color: #333;
+}
+
+.card {
+  width: 300px;
+  background: #fff;
+  margin-bottom: 5px;
+  padding: 6px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.09);
+}
+
+.card-block {
+  margin: 4px 2px;
+}
+
+#signup-btn, #signin-btn {
+  margin: 4px 2px;
+}
+
+#signin-href, #signup-href{
+  margin-left: 60px;
+}

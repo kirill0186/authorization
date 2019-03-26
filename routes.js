@@ -1,30 +1,49 @@
+var multer = require("multer");
+var upload = multer();
+
 let {
   User,
   userIsRegistreted,
-  clearStorage,
   findUserByEmail,
   getProducts,
-  addBonusToUser
+  addBonusToUser,
+  validUserPassword
 } = require("./storage/storage");
 
-// clearStorage();
 
 module.exports = app => {
   app.get("/", (req, res) => {
     res.render("index.pug");
   });
 
-  app.post("/signup", (req, res) => {
+  app.get("/signin", (req, res) => {
+      res.render("signin.pug")
+  })
+
+  app.post("/signin", upload.array(), (req, res) => {
+      let {email, password} = req.body;
+      if (userIsRegistreted(email)) {
+          if(validUserPassword(email, password)){
+            res.json({ status: "signin" });
+          } else {
+            res.json({ status: "pass_error" });
+          }
+      } else {
+        res.json({ status: "unregistrated" });
+      }
+
+  })
+
+  app.post("/signup", upload.array(), (req, res) => {
     let { email, password } = req.body;
-    console.log(email, password);
     if (!userIsRegistreted(email)) {
-      let user = new User(email, password);
+      let user = new User(email);
+      user.setPassword(password);
       user.addPoints(100);
       user.saveToStorage();
-      res.redirect(`/profile/${email}`);
+      res.json({ status: "signup" });
     } else {
-      console.log("exist");
-      res.redirect("/");
+      res.json({ status: "error" });
     }
   });
 
@@ -40,8 +59,7 @@ module.exports = app => {
   });
 
   app.get("/buy", (req, res) => {
-    // console.log("redf "+req.query.id, req.query.email);
-    addBonusToUser(req.query.email, req.query.id);
-    res.redirect("/products");
+    let bonus = addBonusToUser(req.query.email, req.query.id);
+    res.json({ msg: "Your bonus: ", bonus: bonus });
   });
 };

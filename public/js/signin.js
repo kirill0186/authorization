@@ -1,12 +1,12 @@
 window.onload = () => {
-  const signUpForm = document.getElementById("signup-form");
+  const signInForm = document.getElementById("signin-form");
 
-  signUpForm.addEventListener("submit", e => {
+  signInForm.addEventListener("submit", e => {
     e.preventDefault();
 
-    const formData = new FormData(document.getElementById("signup-form"));
+    const formData = new FormData(document.getElementById("signin-form"));
 
-    fetch("/signup", {
+    fetch("/signin", {
       method: "POST",
       body: formData
     })
@@ -15,14 +15,16 @@ window.onload = () => {
       })
       .then(({ status }) => {
         switch (status) {
-          case "signup":
+          case "signin":
             let email = document.getElementById("email");
             localStorage["email"] = email.value;
             window.location.pathname = `/profile/${email.value}`;
-            alert("Your signup bonus: 100")
             break;
-          case "error":
-            alert("User already exists. Sign In")
+          case "pass_error":
+            alert("Incorrect password. Try again.");
+            break;
+          case "unregistrated":
+            alert("Such user not exist. Sign Up.");
         }
       })
       .catch(err => {

@@ -6,8 +6,12 @@ class User {
   constructor(email, password, id = uuidv4(), points = 0) {
     this.id = id;
     this.email = email;
-    this.password = bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
+    this.password = password;
     this.points = points;
+  }
+
+  setPassword(password){
+    this.password = this.generateHash(password);
   }
 
   generateHash(password) {
@@ -33,7 +37,6 @@ class User {
     };
 
     if (userIsRegistreted(this.email)) {
-      console.log("USERS: " + getUsers());
       storage = removeUserFromStorage(this.id);
     }
     let updatedStorage = { ...storage, users: storage.users.concat([user]) };
@@ -55,13 +58,6 @@ function removeUserFromStorage(id) {
     }
   });
   return { ...getStorage(), users: updatedUsers };
-}
-
-function clearStorage() {
-  let storage = '{"users":[]}';
-  fs.writeFileSync("storage/storage.json", storage, err => {
-    if (err) throw err;
-  });
 }
 
 function getStorage() {
@@ -92,20 +88,25 @@ function getProducts() {
 }
 
 function addBonusToUser(userEmail, productId) {
-  console.log(userEmail);
   let product = getProducts().find(_product => {
     return _product.id == productId;
   });
   let user = findUserByEmail(userEmail);
-  user.addPoints(parseInt(product.price / 100));
-  console.log(user);
+  let bonus = parseInt(product.price / 100)
+  user.addPoints(bonus);
+  return bonus;
+}
+
+function validUserPassword(email, password){
+  return findUserByEmail(email).validPassword(password);
+
 }
 
 module.exports = {
   User,
   userIsRegistreted,
-  clearStorage,
   findUserByEmail,
   getProducts,
-  addBonusToUser
+  addBonusToUser,
+  validUserPassword
 };

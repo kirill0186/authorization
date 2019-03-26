@@ -4,11 +4,12 @@ html(lang="en")
         meta(charset="UTF-8")
         link(href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet")
         link(rel="stylesheet", href="css/style.css")
-        script(src="js/index.js")
-        title Registration
+        script(src="js/signin.js")
+
+        title Authorization
     body
 
-        form#signup-form.card()
+        form#signin-form.card()
             .card-block
                 label Email
                 br
@@ -16,6 +17,6 @@ html(lang="en")
             .card-block
                 label Password
                 br
-                input(type="password" class="" name="password")
-            button#signup-btn(type="submit" ) Sign Up
-            a#signin-href(href="/signin") Sign In
+                input(type="password"  name="password")
+            button#signin-btn(type="submit" ) Sign In
+            a#signup-href(href="/") Sign Up
