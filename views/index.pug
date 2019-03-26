@@ -2,15 +2,16 @@ doctype html
 html(lang="en")
     head
         meta(charset="UTF-8")
-        link(rel="stylesheet", href="style.css")
+        //- link(rel="stylesheet", href="style.css")
+        script(src="js/index.js")
         title Authorization
     body
 
         form(action="/signup" method="post")
             div 
                 label Email
-                input(type="text" class="" name="email")
+                input#email(type="text" name="email")
             div
                 label Password
                 input(type="password" class="" name="password")
-            button(type="submit" class="") Sign Up
+            button#sign-up(type="submit" ) Sign Up

@@ -1,0 +1,15 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        //- link(rel="stylesheet", href="style.css")
+        script(src="js/products.js")
+        title Products
+    body
+        div#email
+        each product in products ? products : ["There are no products"]
+            div= product.name
+            div= product.price
+            a
+                button(onclick=`buyItem(${product.id})`) Buy
+            hr
